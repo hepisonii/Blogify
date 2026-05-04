@@ -85,6 +85,16 @@
   border-radius: 8px;
   margin-top: 10px;
 }
+.card-text-local {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
     </style>
 </head>
 <body>
@@ -110,7 +120,7 @@
                 <img src="<%= blogs.coverImageURL %>"    class="card-img-top" alt="Image not rendered">
             <div class="card-body">
                 <h5 class="card-title"><%= blogs.title %></h5>
-                <p class="card-text"><%= blogs.body  %></p>
+                <p class="card-text-local"><%= blogs.body  %></p>
                 <a href="/blog/<%= blogs._id %>" class="btn btn-primary">View Blog and Comments </a>
             </div>
         </div>
