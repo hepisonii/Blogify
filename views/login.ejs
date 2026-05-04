@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login In</title>
+    <style>
+        body{
+            font-family: Lucida Sans;
+        }
+        input{
+            height:20px;
+            width:150px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        input:focus {
+            box-shadow: 0px 0px 5px blue;
+            outline: none;
+        }
+        .submit{
+            background-color: rgb(0, 179, 255);
+            color: white;
+            border-radius: 5px;
+            border-color: rgb(0, 179, 255);
+            font-weight: bold;
+            height: 30px;
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <div>
+        <form method="POST" action="/user/login">
+            <table>
+                <tr>
+                    <td><label>Email: </label></td>
+                    <td>
+                        <input
+                        type="email"
+                        name="email"
+                        placeholder="example@gmail.com" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Password: </label></td>
+                    <td>
+                        <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your Name" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="middle"><button type="submit" class="submit"> Login </button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <% if (locals.error) { %>
+        <p> <font color="red"><u><%= error %></u></font></p>
+    <% } %>
+    <div style="display: flex; gap: 10px;">
+        <p> Haven't created an account yet?
+        <a href="/user/signup"> Sign Up </a> </p>
+    </div>
+</body>
+</html>

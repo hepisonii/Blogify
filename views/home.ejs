@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <title>Home Page</title>
+    <style>
+        .blog-card {
+  width: 18rem;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Author box */
+.author-box {
+  background: #f8f9fa;
+  padding: 8px 12px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.author-label {
+  color: #6c757d;
+}
+
+.author-name {
+  font-weight: 600;
+  color: #0d6efd;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    width: 75%;
+
+}
+.main-layout {
+  display: flex;
+  gap: 20px;
+}
+
+/* LEFT SIDE (blogs) */
+.blog-container {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* RIGHT SIDE (ads) */
+.ad-sidebar {
+  flex: 1;
+  margin-top: 80px;
+  margin-right: 20px;
+  height: 400px;
+}
+
+/* Ad box styling */
+.ad-box {
+  position: fixed;   /* 🔥 scroll pe stick rahega */
+  top: 80px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  height: 490px;
+}
+
+.ad-box img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    <div class="main-layout">
+    <div class="flex">
+        <% if (locals.allBlog) { %>
+         <% allBlog.forEach(blogs => { %>
+            <div class="card" style="width: 18rem;">
+                <div class="author-box">
+  <span class="author-label">Created by</span>
+
+  <div class="author-info">
+    <img src="<%= blogs.createdBy.profileImageURL %>"
+      alt="author"
+      class="author-avatar"
+      width="30px"
+    >
+    <span class="author-name"><%= blogs.createdBy.fullName %></span>
+  </div>
+</div>
+
+                <img src="<%= blogs.coverImageURL %>"    class="card-img-top" alt="Image not rendered">
+            <div class="card-body">
+                <h5 class="card-title"><%= blogs.title %></h5>
+                <p class="card-text"><%= blogs.body  %></p>
+                <a href="/blog/<%= blogs._id %>" class="btn btn-primary">View Blog and Comments </a>
+            </div>
+        </div>
+        <% }) %>
+        <% } %>
+    </div>
+        <div class="ad-sidebar">
+            <div class="ad-box">
+                <p>Advertisement</p>
+                <img src="https://thumbs.dreamstime.com/b/advertising-word-cloud-business-concept-56936998.jpg" alt="Ad">
+            </div>
+        </div>
+        </div>
+    <%- include("./partials/scripts") %>
+</body>
+</html>

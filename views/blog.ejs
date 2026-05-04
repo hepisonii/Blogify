@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <title>Add new Blog </title>
+    <style>
+        body{
+            font-family: Lucida Sans;
+        }
+        input{
+            height:40px;
+            width:400px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        input:focus {
+            box-shadow: 0px 0px 5px blue;
+            outline: none;
+        }
+        textarea{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        textarea:focus {
+            box-shadow: 0px 0px 5px blue;
+            outline: none;
+        }
+        .submit{
+            background-color: rgb(0, 179, 255);
+            color: white;
+            border-radius: 5px;
+            border-color: rgb(0, 179, 255);
+            font-weight: bold;
+            height: 30px;
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    <div>
+    <table style="margin-left: 40px;">
+    <form action="/blog/add-blog" method="POST" enctype="multipart/form-data">
+        <tr>
+            <td>
+                <label for="title"> Title: </label>
+            </td>
+            <td>
+                <input type="text" name="title" placeholder="Enter your Title"/ required>
+            </td>
+        </tr>
+        <tr align="top">
+            <td align="top">
+                <label for="body"> Body: </label>
+            </td>
+            <td> 
+                <textarea name="body" cols="80" rows="10" placeholder="Enter your body"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Cover Image: </label>
+            </td>
+            <td style="padding-left: 30px;">
+                <input type="file" name="coverImageURL" /> 
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="middle">
+                <button type="submit" class="submit"> Upload </button>
+            </td>
+        </tr>
+    </form>
+    </table>
+    </div>
+    <div>
+        <% if (locals.success) { %>
+         <%= success %>
+        <% } %>
+    </div>
+    <%- include("./partials/scripts") %>
+</body>
+</html>

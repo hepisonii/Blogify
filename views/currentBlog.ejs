@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("./partials/head") %>
+  <title><%= currentBlog.title %></title>
+
+  <style>
+    .blog-wrapper {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .blog-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .author-box {
+      background: #f8f9fa;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-name {
+      font-weight: 600;
+      color: #0d6efd;
+    }
+
+    .blog-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .blog-body {
+      padding: 20px;
+    }
+
+    .blog-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .blog-text {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+    }
+    .comments-section {
+  padding: 0 20px 20px;
+}
+
+.comment-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.comment-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-name {
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.comment-text {
+  margin-top: 4px;
+  font-size: 14px;
+}
+  </style>
+</head>
+
+<body>
+
+<%- include("./partials/nav") %>
+
+<div class="blog-wrapper">
+
+  <div class="blog-card">
+
+    <!-- Author -->
+    <div class="author-box">
+      <span>Created by</span>
+
+      <div class="author-info">
+        <img 
+          src="<%= currentBlog.createdBy?.profileImageURL || '/images/image.png' %>" 
+          class="author-avatar"
+        >
+        <span class="author-name">
+          <%= currentBlog.createdBy?.fullName || "Unknown" %>
+        </span>
+      </div>
+    </div>
+
+    <!-- Image -->
+    <img 
+      src="<%= currentBlog.coverImageURL %>" 
+      class="blog-image"
+      alt="Blog Image"
+    >
+
+    <!-- Content -->
+    <div class="blog-body">
+      <h1 class="blog-title"><%= currentBlog.title %></h1>
+      <p class="blog-text"><%= currentBlog.body %></p>
+    </div>
+    
+    <% if (locals.comments) { %>
+  <div class="comments-section">
+    <h5 class="mt-3">Comments (<%= comments.length %>)</h5>
+        <% if (locals.user) { %>
+        
+    <div class="container mt-3">
+        <form action="/blog/comment/<%= currentBlog._id %>" method="post">
+            <div class="mb-3" style="display:flex">
+            <input
+                type="text"
+                name="content"
+                placeholder="Enter your comment"
+                class="form-control"
+            >
+            <button type="submit" class="btn btn-sm btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+    <% } %>
+
+    <% comments.forEach(comment => { %>
+
+      <div class="comment-card">
+
+        <img 
+          src="<%= comment.createdBy?.profileImageURL || '/images/image.png' %>" 
+          class="comment-avatar"
+        >
+
+        <div class="comment-content">
+          <div class="comment-header">
+            <span class="comment-name">
+              <a href="/blog/user/<%= comment.createdBy._id %>" style="text-decoration: none;"><%= comment.createdBy?.fullName || "Unknown" %> </a><pre style="color:black"> - View User Profile </pre>
+            </span>
+
+            <span class="comment-time">
+              <%= new Date(comment.createdAt).toDateString() %>
+            </span>
+          </div>
+
+          <p class="comment-text">
+            <%= comment.content %>
+          </p>
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+
+<% } else { %>
+  <p class="mt-3">No comments yet 🚀</p>
+<% } %>
+  </div>
+
+</div>
+
+<%- include("./partials/scripts") %>
+</body>
+</html>

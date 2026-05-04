@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    .comment-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  transition: transform 0.15s ease;
+}
+
+.comment-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Avatar */
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Content */
+.comment-content {
+  flex: 1;
+}
+
+/* Header */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-name {
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Text */
+.comment-text {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+    <title>Document</title>
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    <div class="comment-card">
+  
+  <img 
+    src="<%= comment.user?.profileImageURL || '/images/image.png' %>" 
+    class="comment-avatar"
+  >
+
+  <div class="comment-content">
+    <div class="comment-header">
+      <span class="comment-name">
+        <%= comment.createdBy?.fullName || "Unknown" %>
+      </span>
+      <span class="comment-time">
+        <%= new Date(comment.createdAt).toLocaleDateString() %>
+      </span>
+    </div>
+
+    <p class="comment-text">
+      <%= comment.content %>
+    </p>
+  </div>
+
+</div>
+    <%- include("./partials/scripts") %>    
+</body>
+</html>
