@@ -36,8 +36,6 @@ const storage = new CloudinaryStorage({
 
 const uploads = multer({storage});
 
-const uploads = multer({storage});
-
 blogRoute.get("/add-blog", (req,res) => {
     return res.render("blog", {
         user: req.user
