@@ -21,7 +21,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", PATH.resolve("./views"));
 
-connectMongoose("mongodb://127.0.0.1:27017/blogify");
+connectMongoose(process.env.MONGODB_URL);
 
 app.get("/", async (req,res) => {
     if(!req.user) return res.render("home");
